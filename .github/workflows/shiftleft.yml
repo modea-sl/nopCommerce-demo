@@ -31,7 +31,7 @@ jobs:
     #  env:
     #    SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
     - name: NextGen Static Analysis-C#
-      run: ${GITHUB_WORKSPACE}/sl analyze --app nopCommerce-demo-cs --timeout 45 --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --dotnet src/NopCommerce.sln
+      run: ${GITHUB_WORKSPACE}/sl analyze --app nopCommerce-demo-cs --cpg-generation-timeout 45m --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --dotnet src/NopCommerce.sln
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         
