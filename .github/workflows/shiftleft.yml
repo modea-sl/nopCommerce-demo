@@ -26,8 +26,12 @@ jobs:
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
-    - name: NextGen Static Analysis
+    - name: NextGen Static Analysis-JS
       run: ${GITHUB_WORKSPACE}/sl analyze --strict --wait --app nopCommerce-demo --container 18fgsa/s3-resource --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --js --cpg .
+      env:
+        SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
+    - name: NextGen Static Analysis-C#
+      run: ${GITHUB_WORKSPACE}/sl analyze --app nopCommerce-demo-cs --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --dotnet src/NopCommerce.sln
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         
